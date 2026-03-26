@@ -9,7 +9,7 @@ The best growth thinking lives in hour-long YouTube talks, 90-minute podcast epi
 ## How It Works
 
 | Step &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | What happens |
-|------|-------------|
+|:------|:-------------|
 | **1. Extract** | YouTube: ytsearch CLI (instant, no browser). Maven/Mux: faster-whisper local transcription. Blogs: direct HTTP fetch. |
 | **2. Research** | Four targeted web searches: growth engineering bridge, speaker's extended thinking, supporting/contrasting evidence, framework lineage. |
 | **3. Write** | 11-section essay template covering insights, tactical playbook, growth engineering lens, growth marketing lens, and more. |
