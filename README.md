@@ -9,13 +9,13 @@ The best growth thinking lives in hour-long YouTube talks, 90-minute podcast epi
 ## How It Works
 
 ```
-Input (YouTube link, blog URL, or pasted text)
+Input (YouTube link, blog URL, Maven lesson link, or pasted text)
     |
     v
 Content Extraction
-    |  YouTube: browser-based transcript extraction
-    |  Blogs: direct fetch + illustration screenshots
-    |  Maven: Mux player CC track extraction
+    |  YouTube: ytsearch CLI (instant, no browser)
+    |  Maven/Mux: faster-whisper local transcription
+    |  Blogs: direct HTTP fetch + illustration screenshots
     |
     v
 4-Dimension Contextual Research (WebSearch)
@@ -83,14 +83,95 @@ Research is filtered to high-quality growth sources:
 
 **Avoided**: Generic SEO content, listicles, low-authority marketing blogs
 
+## Setup
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18+)
+- [Claude Code](https://claude.ai/claude-code) (orchestrates the full pipeline)
+- [uv](https://docs.astral.sh/uv/) (Python package manager, for ytsearch)
+- [ffmpeg](https://ffmpeg.org/) (for Maven audio extraction)
+
+### Installation
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/joleneann/growth-content-essays.git
+cd growth-content-essays
+
+# 2. Install Node.js dependencies (PDF generator)
+npm install
+
+# 3. Install uv (Python package manager)
+# Windows:
+powershell -Command "irm https://astral.sh/uv/install.ps1 | iex"
+# macOS/Linux:
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# 4. Set up ytsearch (YouTube transcript extraction)
+git clone https://github.com/Infatoshi/ytsearch.git tools/ytsearch
+
+# 5. Set up faster-whisper (Maven/Mux video transcription)
+uv venv tools/whisper-env
+uv pip install faster-whisper yt-dlp --python tools/whisper-env/Scripts/python.exe
+
+# 6. Install ffmpeg
+# Windows: winget install Gyan.FFmpeg
+# macOS: brew install ffmpeg
+# Linux: sudo apt install ffmpeg
+```
+
+### Verify Installation
+
+```bash
+# Test YouTube transcript extraction
+cd tools/ytsearch && uv run ytsearch.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" | head -5
+
+# Test PDF generation
+node essays/md2pdf.mjs samples/essay_v1_boris_cherny.md test-output.pdf
+
+# Test faster-whisper
+tools/whisper-env/Scripts/python.exe -c "from faster_whisper import WhisperModel; print('OK')"
+```
+
+### Usage
+
+Open Claude Code in the project directory and send a link:
+
+```
+# YouTube video
+"Process this: https://www.youtube.com/watch?v=VIDEO_ID"
+
+# Blog post
+"Process this: https://a16z.com/some-article/"
+
+# Maven Lightning Lesson
+"Process this: https://maven.com/p/LESSON_ID/lesson-name"
+
+# Pasted text
+"Process this: [paste full article text]"
+```
+
+Claude Code handles everything: extraction, research, essay writing, and PDF generation.
+
 ## Project Structure
 
 ```
-CLAUDE.md              # System instructions and essay template
-essays/md2pdf.mjs      # Custom PDF generator with image embedding
-fonts/                 # Inter and InterDisplay TTF files
-samples/               # Sample essay outputs (.md + .pdf)
-package.json           # Node.js dependencies (pdf-lib, fontkit)
+CLAUDE.md                    # System instructions, essay template, and research rules
+essays/md2pdf.mjs            # Custom PDF generator with image embedding
+tools/transcribe_maven.py    # Maven/Mux video transcription script
+fonts/                       # Inter and InterDisplay TTF files (6 TTFs)
+samples/                     # Sample essay outputs (.md + .pdf)
+package.json                 # Node.js dependencies (pdf-lib, fontkit)
+```
+
+**Local only (not in repo):**
+```
+transcripts/                 # Saved transcripts for re-use
+essays/*.pdf                 # Generated essay PDFs
+essays/images/               # Screenshotted illustrations
+tools/ytsearch/              # Cloned ytsearch repo
+tools/whisper-env/           # Python venv with faster-whisper
 ```
 
 ## Built By
