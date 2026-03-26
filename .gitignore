@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Raw transcripts (third-party content)
+transcripts/
+
+# Bulk essays (third-party content derivatives)
+essays/*.pdf
+essays/*.md
+essays/images/
+
+# Font extras (only core TTFs needed)
+fonts/extras/
+fonts/Inter.zip
+
+# Personal files
+to be studied.txt
+
+# OS files
+.DS_Store
+Thumbs.db
