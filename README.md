@@ -134,6 +134,13 @@ node essays/md2pdf.mjs samples/essay_v1_boris_cherny.md test-output.pdf
 tools/whisper-env/Scripts/python.exe -c "from faster_whisper import WhisperModel; print('OK')"
 ```
 
+### Updating
+
+```bash
+git pull origin main
+npm install  # in case dependencies changed
+```
+
 ### Usage
 
 Open Claude Code in the project directory and send a link:
