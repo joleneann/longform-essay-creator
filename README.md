@@ -23,7 +23,7 @@ Send a link. Get back a comprehensive essay that you can read instead of watchin
 
 **Contextual research.** Before writing, the system runs targeted web searches to connect the content to growth engineering and marketing practice, find the speaker's extended thinking on the topic, locate supporting or contrasting evidence, and trace framework lineage to canonical sources.
 
-**Growth-native analysis.** Every essay includes dedicated sections on how the content applies to growth engineering (experimentation, data infrastructure, A/B testing, growth loops) and growth marketing (acquisition channels, retention mechanics, lifecycle marketing).
+**Growth-native analysis.** Every essay includes dedicated sections on how the content applies to growth engineering (experimentation, data infrastructure, A/B testing, growth loops) and growth marketing (acquisition channels, retention mechanics, lifecycle marketing). These sections are powered by a practitioner knowledge base built from 30+ sources covering real benchmarks, tool landscapes, company case studies, and current channel economics.
 
 **Visual fidelity.** When source material contains framework diagrams, data charts, or process flows, the system screenshots them from the source and embeds them directly in the PDF.
 
@@ -47,7 +47,7 @@ Every essay follows this 11-section structure:
 
 See the [`samples/`](samples/) directory for a complete example essay:
 
-- [Head of Claude Code: What Happens After Coding Is Solved](samples/2026-03-26%20-%20Head%20of%20Claude%20Code%20What%20Happens%20After%20Coding%20Is%20Solved.pdf) (Boris Cherny on Lenny's Podcast, 19 pages)
+- [Head of Claude Code: What Happens After Coding Is Solved](samples/2026-03-26%20-%20Head%20of%20Claude%20Code%20What%20Happens%20After%20Coding%20Is%20Solved.pdf) (Boris Cherny on Lenny's Podcast, 28 pages)
 
 ## Tech Stack
 
@@ -143,6 +143,7 @@ Claude Code handles everything: extraction, research, essay writing, and PDF gen
 | File | Purpose |
 |------|---------|
 | `CLAUDE.md` | System instructions, essay template, and research rules |
+| `research/` | Growth engineering and marketing knowledge bases (30+ sources) |
 | `essays/md2pdf.mjs` | Custom PDF generator with image embedding |
 | `tools/transcribe_maven.py` | Maven/Mux video transcription script |
 | `fonts/` | Inter and InterDisplay TTF files (6 TTFs) |
