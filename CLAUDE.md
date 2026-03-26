@@ -6,7 +6,11 @@ This project converts long-form growth content (YouTube talks, podcast interview
 
 1. **User sends input**: A YouTube link, blog URL, Maven Lightning Lesson link, or pasted text from any growth operator (Lenny Rachitsky, a16z partners, Reforge instructors, Figma leaders, Anthropic folks, etc.)
 2. **Claude fetches the content**:
-   - **YouTube links**: Open in browser, click "Show transcript" to open the transcript panel, extract all segments via JavaScript. If YouTube's transcript panel is unavailable, use a third-party transcript service (e.g., youtube-transcript.io) via the browser.
+   - **YouTube links**: Use `ytsearch` (installed at `tools/ytsearch/`) to extract the full transcript with timestamps in a single command:
+     ```
+     cd D:/Claude Code Projects/Lenny/tools/ytsearch && "C:\Users\Jolene Fernandes\.local\bin\uv" run ytsearch.py "YOUTUBE_URL" > ../../transcripts/speaker-name-topic.txt
+     ```
+     This pulls captions directly from YouTube's endpoint over HTTP. No browser, no API keys, instant results. If ytsearch fails (rare cases where captions are disabled), fall back to opening the video in the browser and using youtube-transcript.io.
    - **Maven Lightning Lessons**: Open the lesson page in the browser. The video is hosted on Mux. Enable the hidden English CC subtitle track on the mux-player element via JavaScript (`textTracks[subtitles].mode = 'showing'`), seek through the video at 25%/50%/75%/end to force all cues to load, then extract all cue text. There is no visible CC button but the track data is there.
    - **Blog URLs**: Fetch via WebFetch and extract the article content. Only process blogs where the full content is accessible. If a blog is paywalled, ask the user to copy-paste the full text instead.
    - **Pasted text**: Process directly.

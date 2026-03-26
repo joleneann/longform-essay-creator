@@ -16,6 +16,9 @@ fonts/Inter.zip
 # Personal files
 to be studied.txt
 
+# External tools (cloned repos)
+tools/
+
 # OS files
 .DS_Store
 Thumbs.db
