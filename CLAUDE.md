@@ -87,7 +87,7 @@ When the speaker references established frameworks (crossing the chasm, jobs to 
 - Listicles and low-authority marketing blogs
 - Anything that reads like it was written for search ranking rather than practitioners
 
-**Citation rule**: Every external source used must appear in the "Sources & Further Reading" section (Section 11) of the essay with source name and URL.
+**Citation rule**: Every external source used must appear in the "Sources & Further Reading" section (Section 7) of the essay with source name and URL.
 
 ## Essay Template
 
@@ -99,59 +99,78 @@ Every essay must follow this structure. There is **no word cap** — write as mu
 - Date (if known)
 - Link to original content
 
-### 2. TL;DR
-3-5 sentences. What is this about and why does it matter?
+### 2. Executive Summary
+4-6 sentences max. Merges what was previously TL;DR and Core Thesis into a single opener. State (a) what this source is about and who the speaker is, (b) the central argument or big idea, and (c) why a growth practitioner should care. This is a map, not the territory; every claim here gets developed in Section 3. Do not elaborate beyond setup.
 
-### 3. Core Thesis
-The central argument or insight the speaker/author is making. What is the one big idea?
-
-### 4. Key Insights & Frameworks
+### 3. Key Insights & Frameworks (with Growth Angles)
 The major ideas, mental models, and frameworks discussed. Each insight gets its own subheading with a clear explanation. This is the meat of the essay. Write as much as the material demands; do not artificially compress or expand.
 
-### 5. Tactical Playbook
-Concrete, actionable takeaways organized as specific things to try. Not abstract advice; real moves a growth practitioner can make Monday morning.
+**Growth Angles**: After explaining each insight, include a **Growth Angle** block where the insight has genuine growth engineering or marketing implications. The Growth Angle must add NEW analysis (benchmarks, framework connections, tactical implications for growth teams) that was not stated in the insight explanation above it. If the insight already covers the growth implications, or if it has no meaningful growth connection, skip the Growth Angle for that subsection.
 
-### 6. Growth Engineering Lens
-Written for someone who builds growth systems. Ground this section in how practitioners actually work, not abstract theory. Draw on these realities:
+The Growth Angle may lean engineering, marketing, or both depending on the insight. There is no requirement to cover both perspectives for every insight. Use the subsection format:
 
-- **Experimentation infrastructure**: How does this content affect what you'd build into your experiment platform? Think Statsig/Eppo/GrowthBook, feature flags, sequential testing, CUPED, holdout groups. Reference the Alexey Test's 11 steps where relevant.
-- **The "tent vs. skyscraper" tradeoff**: Growth engineers ship to learn, not to build. Code is disposable; insight is permanent. How does this content change what experiments you'd run, and how quickly?
-- **Activation and onboarding**: Concrete engineering moves (fake door tests, CLI-based onboarding, video-assisted forms, progressive disclosure). What would you instrument or measure differently?
-- **Growth loops (not funnels)**: How does this content connect to building compounding systems where output feeds back into input? Viral loops, content loops, paid loops, data flywheels.
-- **Tooling and self-serve**: One of a growth engineer's highest-leverage moves is removing themselves as a bottleneck. What no-code tooling, internal dashboards, or MarTech integrations does this content suggest?
-- **AI-era specifics**: LLMs accelerating hypothesis generation, variant assembly, and metric interpretation. AI coding assistants generating 46% of code. How does this content intersect with AI-native experimentation?
-- **Metrics**: Tie back to activation rate, experiment velocity (4-6 tests/month typical), time-to-value, feature adoption, retention cohorts. Use real benchmarks where they fit.
+```
+### 3.N [Insight Title]
+
+[Full explanation of the insight: what the speaker said, examples, anecdotes,
+data, nuance, qualifications. This is the single canonical place where this
+idea lives in the essay.]
+
+**Growth Angle**
+
+[NEW growth engineering and/or growth marketing analysis. Connect to
+benchmarks from the research knowledge bases. Apply practitioner frameworks
+where they genuinely fit. Do NOT restate the insight above.]
+```
+
+**Growth engineering reference material** (draw on these when writing Growth Angles):
+- Experimentation infrastructure: Statsig/Eppo/GrowthBook, feature flags, sequential testing, CUPED, holdout groups, the Alexey Test's 11 steps
+- The "tent vs. skyscraper" tradeoff: ship to learn, not to build; code is disposable, insight is permanent
+- Activation and onboarding: fake door tests, CLI-based onboarding, video-assisted forms, progressive disclosure
+- Growth loops (not funnels): compounding systems where output feeds input; viral, content, paid, data flywheels
+- Tooling and self-serve: removing yourself as bottleneck; no-code tooling, internal dashboards, MarTech integrations
+- AI-era specifics: LLMs accelerating hypothesis generation, variant assembly, metric interpretation; AI coding assistants generating 46% of code
+- Metrics: activation rate, experiment velocity (4-6 tests/month typical), time-to-value, feature adoption, retention cohorts
 
 Reference the research knowledge base at `research/growth-engineering-2025-2026-raw-notes.md` for specific data points, benchmarks, and company examples.
 
-### 7. Growth Marketing Lens
-Written for someone who runs growth campaigns. Ground this section in current channel realities and practitioner frameworks, not textbook marketing.
-
-- **Channel strategy**: How does this content affect paid (Meta Lattice, Google AI Max), organic (SEO is now AEO; 58.5% zero-click searches), PLG mechanics (freemium at 5% conversion, PQLs at 25-30%), community-led growth (Notion's 95% organic), lifecycle email (41% revenue lift from AI personalization), or ABM (171% ACV lift)?
-- **The CAC crisis**: B2B SaaS CAC up 40-60% since 2023. Referrals remain cheapest ($141-$200). How does this content suggest lowering acquisition costs or improving payback period (median 6.8-18 months)?
-- **Growth loops over funnels**: Funnels are linear and run out of fuel. Loops compound. How does this content connect to building loops (viral, content, paid, sales) rather than optimizing funnels?
-- **Pricing and monetization**: 1,800+ pricing changes among top 500 SaaS/AI companies in 2025. Credit models up 126% YoY. Hybrid pricing is the emerging standard. How does this content affect packaging, pricing, or monetization strategy?
-- **Attribution and measurement**: Third-party cookies dying (Safari/Firefox already block). First-party data is king (71% of publishers recognize this). Dark social unmeasurable but increasingly important. How does this content affect how you measure what's working?
-- **AI's impact on marketing**: Meta's 11 new AI ad tools. Google's keyword-free AI Max. AI-generated content: only 3% of pages survive 3 months in top 100. AI referral visitors convert 23x higher than organic. What does this content mean for your AI marketing strategy?
-- **Frameworks**: Connect to AARRR, ICE/PIE scoring, North Star metrics, Emily Kramer's GACC, Elena Verna's 10 anti-patterns, Brian Balfour's Four Fits for channel selection. Use whichever framework fits the content naturally.
+**Growth marketing reference material** (draw on these when writing Growth Angles):
+- Channel strategy: paid (Meta Lattice, Google AI Max), organic (SEO is now AEO; 58.5% zero-click searches), PLG mechanics (freemium at 5% conversion, PQLs at 25-30%), community-led growth (Notion's 95% organic), lifecycle email (41% revenue lift from AI personalization), ABM (171% ACV lift)
+- The CAC crisis: B2B SaaS CAC up 40-60% since 2023; referrals cheapest ($141-$200); payback period median 6.8-18 months
+- Growth loops over funnels: funnels are linear; loops compound; viral, content, paid, sales loops
+- Pricing and monetization: 1,800+ pricing changes among top 500 SaaS/AI companies in 2025; credit models up 126% YoY; hybrid pricing emerging
+- Attribution and measurement: third-party cookies dying; first-party data is king (71% of publishers); dark social unmeasurable but important
+- AI's impact on marketing: Meta's 11 new AI ad tools; Google's keyword-free AI Max; only 3% of AI-generated pages survive 3 months in top 100; AI referral visitors convert 23x higher than organic
+- Frameworks: AARRR, ICE/PIE scoring, North Star metrics, Emily Kramer's GACC, Elena Verna's 10 anti-patterns, Brian Balfour's Four Fits
 
 Reference the research knowledge base at `research/growth-marketing-2025-2026-raw-notes.md` for specific data points, benchmarks, and company examples.
 
-### 8. Contrarian / Non-Obvious Takes
-Surprising, counterintuitive, or against-the-grain points worth remembering. Things most people would miss or disagree with.
+### 4. Tactical Playbook
+Concrete, actionable takeaways organized as specific things to try. Not abstract advice; real moves a growth practitioner can make Monday morning. Each tactic should cite which Section 3 subsection it derives from (e.g., "From 3.6:") but must NOT re-explain the underlying insight.
 
-### 9. Quotable Moments
-3-5 standout quotes (kept brief, under 15 words each) with context on why they matter.
+### 5. Contrarian / Non-Obvious Takes
+3-5 items max. Surprising, counterintuitive, or against-the-grain points worth remembering. Each item: one-sentence statement of the take, then 1-2 sentences of supporting reasoning that adds something NOT already covered in Section 3. If a contrarian take was fully developed in Section 3, it stays there and should not be duplicated here.
 
-### 10. What to Revisit
+### 6. What to Revisit
 Specific sections, timestamps (for videos), or passages worth going back to for deeper study. Point the reader to exactly where to look.
 
-### 11. Sources & Further Reading
+### 7. Sources & Further Reading
 A curated, annotated list of the best external sources found during the research phase. Each entry should include:
 - Source name and URL
 - One sentence on what it adds (e.g., "Andrew Chen's essay on network effects; explains the cold start problem the speaker references in the context of marketplace growth loops")
 
 This is the reader's "go deeper" list. Quality over quantity; only include sources that genuinely add value.
+
+## Anti-Repetition Rules
+
+These rules are mandatory for every essay. The goal is zero redundancy across sections.
+
+1. **Single point of residence.** Every distinct idea, fact, statistic, quote, or anecdote must have exactly ONE home section. Other sections may cross-reference by subsection number (e.g., "see 3.4") but must not restate the idea.
+2. **Growth Angles add, not echo.** The Growth Angle block within a Section 3 subsection must introduce NEW analysis (benchmarks, framework connections, tactical implications) not already stated in the insight explanation above it. If the insight explanation already covers the growth implications, skip the Growth Angle for that subsection.
+3. **Quote once.** Every direct quote from the speaker may appear at most once in the entire essay. Choose the most impactful placement.
+4. **Stat once.** Every statistic or data point may appear at most once. If a stat is used in the Executive Summary as a hook, it must not reappear in Section 3.
+5. **Cross-reference, don't restate.** When a later section needs to build on an earlier idea, use a parenthetical cross-reference: "(see 3.4)" or "Building on the underfunding paradox (3.6)..." followed by NEW analysis only. Never restate what was already said.
+6. **Self-check before finalizing.** Before producing the final essay, scan for any idea, quote, stat, or anecdote that appears more than once. Eliminate all duplicates by keeping the instance in the most appropriate section and replacing other instances with cross-references or removing them entirely.
 
 ## Tone & Style
 
@@ -170,7 +189,7 @@ The goal is NOT summarization. The reader is choosing this essay INSTEAD OF watc
 - **Preserve the speaker's qualifications and caveats.** If the speaker said "coding is largely solved, but with important exceptions," do not write "coding is solved." The qualifications are the nuance.
 - **Include specific examples, anecdotes, and data points** the speaker used. If they told a story, describe the story. If they cited a number, cite the number. If they named a company, name the company.
 - **Cover every major topic discussed**, not just the most quotable ones. If the video has 20 chapters, all 20 should be reflected in the essay, even if some are handled briefly.
-- **Section 4 (Key Insights & Frameworks) should be the longest section.** This is where the full depth lives. Write as much as the material demands. Do not pad with repetition or filler, but do not compress either. Every subsection should fully explain the idea, not gesture at it.
+- **Section 3 (Key Insights & Frameworks) should be the longest section.** This is where the full depth lives. Write as much as the material demands. Do not pad with repetition or filler, but do not compress either. Every subsection should fully explain the idea, not gesture at it.
 - **No artificial word or paragraph limits on any section.** Let the material dictate the length. But every sentence must earn its place: no rambling, no repeating the same point in different words, no filler.
 
 ## PDF Formatting Rules

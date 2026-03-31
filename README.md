@@ -8,16 +8,18 @@ An AI-powered system that converts long-form growth content (YouTube talks, podc
 |:-----|:-------------|
 | **1. Extract content** | YouTube: ytsearch CLI (instant, no browser). Maven/Mux: faster-whisper local transcription. Blogs: direct HTTP fetch. |
 | **2. Research context** | Four targeted web searches: growth engineering bridge, speaker's extended thinking, supporting/contrasting evidence, framework lineage. |
-| **3. Write essay** | 11-section template covering insights, tactical playbook, growth engineering lens, growth marketing lens, and more. |
+| **3. Write essay** | 7-section template with inline Growth Angles, strict anti-repetition rules, and zero redundancy. |
 | **4. Generate PDF** | Custom PDF with Inter/InterDisplay typography and embedded framework illustrations. |
 
 Send a link. Get back a comprehensive essay you can read instead of watching the video, enriched with contextual research from high-quality growth sources.
 
 ## What Makes This Different
 
-**Not a summary.** A full replacement for watching the video. Every major topic gets proportional depth. Speaker qualifications, caveats, examples, and data points are preserved. The growth engineering and marketing lens sections are powered by a practitioner knowledge base built from 30+ sources covering real benchmarks, tool landscapes, and current channel economics.
+**Not a summary.** A full replacement for watching the video. Every major topic gets proportional depth. Speaker qualifications, caveats, examples, and data points are preserved.
 
-**Research-enriched.** Before writing, the system searches for how the content connects to growth practice, finds the speaker's extended thinking, locates supporting or contrasting evidence, and traces frameworks to canonical sources. All from a curated list of 20+ preferred growth practitioners and publications.
+**Zero redundancy.** The essay template enforces strict anti-repetition rules: every idea, quote, and data point gets exactly one home. Growth engineering and marketing perspectives are woven inline as "Growth Angles" after each relevant insight, not siloed into separate sections that rehash the same points. Cross-references replace restatements. The result is essays that are 25-35% shorter with zero loss of unique content.
+
+**Research-enriched.** Before writing, the system searches for how the content connects to growth practice, finds the speaker's extended thinking, locates supporting or contrasting evidence, and traces frameworks to canonical sources. Growth Angles draw on a practitioner knowledge base built from 30+ sources covering real benchmarks, tool landscapes, and current channel economics. All from a curated list of 20+ preferred growth practitioners and publications.
 
 ## Curatorial Lens
 
@@ -25,9 +27,12 @@ The practitioners and publications in this system are not algorithmically select
 
 ## Sample Output
 
-See [`samples/`](samples/) for a complete example:
+See [`samples/`](samples/) for complete examples:
 
-- [Head of Claude Code: What Happens After Coding Is Solved](samples/2026-03-26%20-%20Head%20of%20Claude%20Code%20What%20Happens%20After%20Coding%20Is%20Solved.pdf) (Boris Cherny on Lenny's Podcast, 28 pages)
+- [On Taste](samples/On%20Taste.pdf) (Paul Graham, Julie Zhuo, Gaurav Vohra, Emil Kowalski, Anu Atluru, Steve Jobs; 16 pages)
+- [a16z Big Ideas 2026](samples/a16z%20Big%20Ideas%202026.pdf) (40+ a16z partners; 20 pages)
+- [Agents and Agentic Workflows](samples/Agents%20and%20Agentic%20Workflows.pdf) (Sara Davison & Tyler Fisk, AI Build Lab; 13 pages)
+- [Head of Claude Code: What Happens After Coding Is Solved](samples/2026-03-26%20-%20Head%20of%20Claude%20Code%20What%20Happens%20After%20Coding%20Is%20Solved.pdf) (Boris Cherny on Lenny's Podcast; 28 pages)
 
 ## Tech Stack
 

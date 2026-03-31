@@ -26,6 +26,7 @@ def extract_audio(mux_url, audio_path):
     cmd = [
         "ffmpeg", "-y",
         "-protocol_whitelist", "file,http,https,tcp,tls,crypto",
+        "-headers", "Referer: https://maven.com/\r\nOrigin: https://maven.com\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\r\n",
         "-i", mux_url,
         "-vn",           # no video
         "-acodec", "mp3",
@@ -39,7 +40,7 @@ def extract_audio(mux_url, audio_path):
         sys.exit(1)
     print(f"Audio saved to {audio_path}")
 
-def transcribe(audio_path, output_path, model_size="medium"):
+def transcribe(audio_path, output_path, model_size="small"):
     """Transcribe audio file using faster-whisper."""
     print(f"Loading {model_size} model (first run downloads ~1.5GB)...")
     model = WhisperModel(model_size, device="cpu", compute_type="int8")
