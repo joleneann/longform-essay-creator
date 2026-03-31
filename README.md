@@ -32,7 +32,6 @@ See [`samples/`](samples/) for complete examples:
 - [On Taste](samples/On%20Taste.pdf) (Paul Graham, Julie Zhuo, Gaurav Vohra, Emil Kowalski, Anu Atluru, Steve Jobs; 16 pages)
 - [a16z Big Ideas 2026](samples/a16z%20Big%20Ideas%202026.pdf) (40+ a16z partners; 20 pages)
 - [Agents and Agentic Workflows](samples/Agents%20and%20Agentic%20Workflows.pdf) (Sara Davison & Tyler Fisk, AI Build Lab; 13 pages)
-- [Head of Claude Code: What Happens After Coding Is Solved](samples/2026-03-26%20-%20Head%20of%20Claude%20Code%20What%20Happens%20After%20Coding%20Is%20Solved.pdf) (Boris Cherny on Lenny's Podcast; 28 pages)
 
 ## Tech Stack
 
