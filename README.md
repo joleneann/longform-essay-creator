@@ -29,9 +29,9 @@ The practitioners and publications in this system are not algorithmically select
 
 See [`samples/`](samples/) for complete examples:
 
-- [On Taste](samples/On%20Taste.pdf) (Paul Graham, Julie Zhuo, Gaurav Vohra, Emil Kowalski, Anu Atluru, Steve Jobs; 16 pages)
-- [a16z Big Ideas 2026](samples/a16z%20Big%20Ideas%202026.pdf) (40+ a16z partners; 20 pages)
-- [Agents and Agentic Workflows](samples/Agents%20and%20Agentic%20Workflows.pdf) (Sara Davison & Tyler Fisk, AI Build Lab; 13 pages)
+- [On Taste](samples/On%20Taste.pdf) (Paul Graham, Julie Zhuo, Gaurav Vohra, Emil Kowalski, Anu Atluru, Steve Jobs; 15 pages)
+- [a16z Big Ideas 2026](samples/a16z%20Big%20Ideas%202026.pdf) (40+ a16z partners; 17 pages)
+- [Agents and Agentic Workflows](samples/Agents%20and%20Agentic%20Workflows.pdf) (Sara Davison & Tyler Fisk, AI Build Lab; 12 pages)
 
 ## Tech Stack
 
@@ -41,8 +41,8 @@ See [`samples/`](samples/) for complete examples:
 
 ```bash
 # Clone and install
-git clone https://github.com/joleneann/growth-content-essays.git
-cd growth-content-essays
+git clone https://github.com/joleneann/longform-essay-creator.git
+cd longform-essay-creator
 npm install
 
 # Install uv (Python package manager)
