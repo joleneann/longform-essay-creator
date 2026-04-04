@@ -19,7 +19,7 @@ An AI-powered system that synthesizes one or many pieces of long-form content (Y
 
 **Multi-source synthesis.** Send multiple sources on the same theme and the system weaves them into a single cohesive essay, tracing where authors agree, diverge, and build on each other. The [On Taste](samples/On%20Taste.pdf) sample combines six independent voices (Paul Graham, Julie Zhuo, Gaurav Vohra, Emil Kowalski, Anu Atluru, Steve Jobs) spanning two decades into one unified argument.
 
-**Research-enriched.** Before writing, the system finds the speaker's extended thinking on the same themes, locates supporting or contrasting evidence, and traces frameworks to canonical sources. All from a curated list of 20+ preferred growth practitioners and publications.
+**Research-enriched.** Before writing a single line, the system runs targeted web research across three dimensions: finding what the same speaker has written or said elsewhere on the same themes (companion blog posts, tweetstorms, other interviews), locating real-world case studies and data that support or contradict the claims being made, and tracing referenced frameworks back to their canonical sources. This contextual research is what turns a transcript into an essay that's actually richer than the original. Sources are drawn from a curated list of 20+ preferred practitioners and publications.
 
 ## Sample Output
 
