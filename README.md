@@ -1,6 +1,6 @@
 # Longform Essay System
 
-An AI-powered system that converts long-form growth content (YouTube talks, podcast interviews, blog posts) into detailed, practitioner-grade written essays. Built for growth engineers and marketers who read better than they watch.
+An AI-powered system that synthesizes one or many pieces of long-form content (YouTube talks, podcast interviews, blog posts) into detailed written essays. Built for those short on time, and read better than they watch.
 
 ## How It Works
 
@@ -11,21 +11,15 @@ An AI-powered system that converts long-form growth content (YouTube talks, podc
 | **3. Write essay** | 7-section template with strict anti-repetition rules and zero redundancy. |
 | **4. Generate PDF** | Custom PDF with Inter/InterDisplay typography and embedded framework illustrations. |
 
-Send a link. Get back a comprehensive essay you can read instead of watching the video, enriched with contextual research from high-quality growth sources.
-
 ## What Makes This Different
 
-**Not a summary.** A full replacement for watching the video. Every major topic gets proportional depth. Speaker qualifications, caveats, examples, and data points are preserved.
+**Not a summary.** A full replacement for watching the video or reading many long form blogs. Every major topic gets proportional depth. Speaker qualifications, caveats, examples, and data points are preserved.
 
 **Zero redundancy.** The essay template enforces strict anti-repetition rules: every idea, quote, and data point gets exactly one home. Cross-references replace restatements. The result is essays that are 25-35% shorter with zero loss of unique content.
 
 **Multi-source synthesis.** Send multiple sources on the same theme and the system weaves them into a single cohesive essay, tracing where authors agree, diverge, and build on each other. The [On Taste](samples/On%20Taste.pdf) sample combines six independent voices (Paul Graham, Julie Zhuo, Gaurav Vohra, Emil Kowalski, Anu Atluru, Steve Jobs) spanning two decades into one unified argument.
 
 **Research-enriched.** Before writing, the system finds the speaker's extended thinking on the same themes, locates supporting or contrasting evidence, and traces frameworks to canonical sources. All from a curated list of 20+ preferred growth practitioners and publications.
-
-## Curatorial Lens
-
-The practitioners and publications in this system are not algorithmically selected. They represent a personal, opinionated curation built from years of working in growth engineering and marketing. Every source on the preferred list has earned its place by consistently publishing practitioner-grade thinking: real frameworks, real data, real case studies. This curation is what makes the research phase useful rather than noisy.
 
 ## Sample Output
 
@@ -93,4 +87,4 @@ Open Claude Code in the project directory and send a link:
 
 ## About
 
-Built by **Jolene Fernandes**, a growth engineer and marketer who built this system to deeply study the operators she follows. The system reflects how she learns: read over watch, depth over breadth, practitioners over pundits. The source list, the essay structure, and the research priorities all come from the same place any good growth strategy does: knowing which signals to pay attention to and which to ignore.
+Built by **Jolene Fernandes**, a growth engineer and marketer who built this system to deeply study the operators she follows. The system reflects how she learns: read over watch, depth over breadth, practitioners over pundits. The source list and the essay structure all come from the same place any good growth strategy does: knowing which signals to pay attention to and which to ignore.
