@@ -1,4 +1,4 @@
-# Growth Content Essay System
+# Longform Essay System
 
 An AI-powered system that converts long-form growth content (YouTube talks, podcast interviews, blog posts) into detailed, practitioner-grade written essays. Built for growth engineers and marketers who read better than they watch.
 
