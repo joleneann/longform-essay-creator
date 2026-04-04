@@ -6,7 +6,7 @@ An AI-powered system that synthesizes one or many pieces of long-form content (Y
 
 | Step | What happens |
 |:-----|:-------------|
-| **1. Extract content** | YouTube: ytsearch CLI (instant, no browser). Maven/Mux: faster-whisper local transcription. Blogs: direct HTTP fetch. |
+| **1. Extract content** | YouTube: ytsearch CLI (instant, no browser). Maven/Mux: Groq Whisper API (~15s per 45-min lesson) with local faster-whisper fallback. Blogs: direct HTTP fetch. |
 | **2. Research context** | Three targeted web searches: speaker's extended thinking, supporting/contrasting evidence, framework lineage. |
 | **3. Write essay** | 7-section template with strict anti-repetition rules and zero redundancy. |
 | **4. Generate PDF** | Custom PDF with Inter/InterDisplay typography and embedded framework illustrations. |
@@ -31,7 +31,7 @@ See [`samples/`](samples/) for complete examples:
 
 ## Tech Stack
 
-[ytsearch](https://github.com/Infatoshi/ytsearch) for YouTube transcripts | [faster-whisper](https://github.com/SYSTRAN/faster-whisper) + ffmpeg for Maven/Mux transcription | [pdf-lib](https://github.com/Hopding/pdf-lib) + [fontkit](https://github.com/nicolo-ribaudo/fontkit) for PDF generation | [Inter](https://rsms.me/inter/) + InterDisplay typography | Claude Code for orchestration
+[ytsearch](https://github.com/Infatoshi/ytsearch) for YouTube transcripts | [Groq Whisper API](https://console.groq.com/docs/speech-to-text) for Maven/Mux transcription (247x real-time, ~$0.03/lesson) with [faster-whisper](https://github.com/SYSTRAN/faster-whisper) fallback | ffmpeg for audio extraction | [pdf-lib](https://github.com/Hopding/pdf-lib) + [fontkit](https://github.com/nicolo-ribaudo/fontkit) for PDF generation | [Inter](https://rsms.me/inter/) + InterDisplay typography | Claude Code for orchestration
 
 ## Setup
 
@@ -47,15 +47,18 @@ powershell -Command "irm https://astral.sh/uv/install.ps1 | iex"
 # macOS/Linux:
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Set up ytsearch + faster-whisper
+# Set up ytsearch + transcription tools
 git clone https://github.com/Infatoshi/ytsearch.git tools/ytsearch
 uv venv tools/whisper-env
-uv pip install faster-whisper yt-dlp --python tools/whisper-env/Scripts/python.exe
+uv pip install faster-whisper yt-dlp groq --python tools/whisper-env/Scripts/python.exe
 
 # Install ffmpeg
 # Windows: winget install Gyan.FFmpeg
 # macOS: brew install ffmpeg
 # Linux: sudo apt install ffmpeg
+
+# Set up Groq API key (free at console.groq.com)
+export GROQ_API_KEY=your_key_here
 ```
 
 **Update anytime:** `git pull origin main && npm install`
@@ -77,7 +80,8 @@ Open Claude Code in the project directory and send a link:
 | `CLAUDE.md` | System instructions, essay template, research rules |
 | `research/` | Growth engineering and marketing knowledge bases |
 | `essays/md2pdf.mjs` | PDF generator with image embedding |
-| `tools/transcribe_maven.py` | Maven/Mux transcription script |
+| `tools/transcribe_groq.py` | Maven/Mux transcription via Groq Whisper API (primary) |
+| `tools/transcribe_maven.py` | Maven/Mux transcription via local faster-whisper (fallback) |
 | `fonts/` | Inter + InterDisplay TTFs |
 | `samples/` | Sample essay output |
 | `transcripts/`* | Saved transcripts (local only) |

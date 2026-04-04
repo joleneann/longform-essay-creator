@@ -11,11 +11,19 @@ This project converts long-form growth content (YouTube talks, podcast interview
      cd tools/ytsearch && uv run ytsearch.py "YOUTUBE_URL" > ../../transcripts/speaker-name-topic.txt
      ```
      Pulls captions directly from YouTube over HTTP. No browser, no API keys. Fallback: youtube-transcript.io via browser.
-   - **Maven Lightning Lessons**: Video is hosted on Mux. Use the faster-whisper pipeline:
-     1. Extract the Mux playback ID from the lesson page via browser JS: `document.querySelector('mux-player').getAttribute('playback-id')`
-     2. Run: `tools/whisper-env/Scripts/python.exe tools/transcribe_maven.py "https://stream.mux.com/{PLAYBACK_ID}.m3u8" "transcripts/speaker-name-topic.txt"`
+   - **Maven Lightning Lessons**: Video is hosted on Mux with signed (JWT-protected) streams. Use the Groq Whisper API pipeline (fast, cheap, accurate):
+     1. Extract the **full signed URL** (not just the playback ID) from the lesson page via browser JS: `document.querySelector('mux-player').media.src`
+        This returns `https://stream.mux.com/{PID}.m3u8?token={JWT}`. The `.media.src` is only populated after the video starts loading; on some pages you may need to click play first.
+     2. Run: `GROQ_API_KEY=your_key tools/whisper-env/Scripts/python.exe tools/transcribe_groq.py "FULL_SIGNED_URL" "transcripts/speaker-name-topic.txt"`
 
-     Downloads audio via ffmpeg, transcribes locally with faster-whisper (CPU, int8). ~2-5 min for a 45-min lesson. Fallback: browser CC track extraction (requires manual play click).
+     Downloads audio via ffmpeg, transcribes via Groq's Whisper API (whisper-large-v3-turbo, 247x real-time). ~15-30 seconds per 45-min lesson. Cost: ~$0.03/lesson. Auto-chunks files over 25MB for the API size limit. Falls back to local faster-whisper if GROQ_API_KEY is not set.
+
+     **Three types of Maven lesson pages:**
+     - **Accessible (video visible):** Mux player is on the page, extract src directly.
+     - **Registration wall ("Watch this lesson for free"):** No mux-player until registered. May need to click the signup button first.
+     - **Upcoming live events:** No recording exists yet. Check for "LIVE" badge + future date.
+
+     **Legacy fallback:** `tools/transcribe_maven.py` uses local faster-whisper (CPU, int8). Much slower (~20-50 min per lesson). Only use if Groq API is unavailable.
    - **Blog URLs**: Fetch via WebFetch and extract the article content. Only process blogs where the full content is accessible. If a blog is paywalled, ask the user to copy-paste the full text instead.
    - **Pasted text**: Process directly.
 3. **Claude runs contextual web research** (see Research Phase below).
