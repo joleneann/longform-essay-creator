@@ -28,12 +28,20 @@ This project converts long-form growth content (YouTube talks, podcast interview
    - **Blog URLs**: Fetch via WebFetch and extract the article content. Only process blogs where the full content is accessible. If a blog is paywalled, ask the user to copy-paste the full text instead.
    - **Pasted text**: Process directly.
 3. **Claude runs contextual web research** (see Research Phase below).
-4. **Claude writes a detailed essay** following the template below, enriched by the research. **CRITICAL: NEVER start writing the essay until ALL research agents have returned. The research enriches every section of the essay. Writing before research completes means rewriting later and produces a worse first draft. Always wait.**
+4. **Claude writes a detailed essay** following the template below, enriched by the research. **CRITICAL: NEVER start writing the essay until ALL research is complete. The research enriches every section of the essay. Writing before research completes means rewriting later and produces a worse first draft. Always wait.**
 5. **Claude saves the essay as a PDF** in `essays/` using the PDF skill, named `YYYY-MM-DD - Title.pdf`.
 
 ## Research Phase
 
-After ingesting the source material but **before writing**, run targeted web searches using WebSearch to deeply contextualize the content. This is what transforms a transcript dump into a practitioner-grade essay. Run searches across these four dimensions:
+After ingesting the source material but **before writing**, run targeted web searches using WebSearch to deeply contextualize the content. This is what transforms a transcript dump into a practitioner-grade essay.
+
+**COMPUTE EFFICIENCY RULES:**
+- **NEVER spawn background agents or sub-agents for research.** They are expensive, frequently time out, and block the essay anyway since writing cannot start until research completes. Use direct WebSearch calls only.
+- **Run 4-8 parallel WebSearch calls** covering the research dimensions below. Review results, then run a second targeted round of 2-4 searches if gaps remain.
+- **Do not use the Agent tool anywhere in the essay workflow.** Not for research, not for writing, not for PDF generation. Everything runs in the main session.
+- **No polling or sleep loops.** Every step should execute sequentially: read transcript, run searches, write essay, generate PDF.
+
+Run searches across these four dimensions:
 
 ### A. Speaker's Extended Thinking
 Search for the speaker's own writing, tweets, or other interviews on the same topic. Often they've written a companion blog post, published slides, or done a tweetstorm that adds depth.
@@ -189,3 +197,15 @@ When source content contains important diagrams, charts, framework visuals, data
 - Location: `D:/Claude Code Projects/Lenny/essays/`
 - Naming: `YYYY-MM-DD - Title.pdf`
 - Generate PDFs using the Node.js script (`essays/md2pdf.mjs`) with pdf-lib and @pdf-lib/fontkit
+
+## Markdown Heading Hierarchy
+
+The PDF generator (md2pdf.mjs) relies on correct heading levels. **This is a hard rule with no exceptions:**
+
+- `#` (H1): Document title only. Used exactly once, as the first heading. This becomes the large title at the top of the PDF.
+- `##` (H2): Section headers (Executive Summary, Key Insights & Frameworks, Tactical Playbook, Contrarian Takes, What to Revisit, Sources & Further Reading). Rendered with display font, horizontal rule separator, and large spacing.
+- `###` (H3): Subsection headers (3.1, 3.2, etc. within Key Insights). Rendered with semibold display font and moderate spacing.
+
+**Do NOT number section headers** (no "1. Source Info", "2. Executive Summary"). The structure is implicit from the template. Source info metadata goes directly under the title as `- **Label:** value` lines.
+
+Wrong heading levels will break PDF formatting: sections render as plain text, spacing collapses, and the visual hierarchy disappears.
