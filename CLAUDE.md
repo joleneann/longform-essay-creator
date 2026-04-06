@@ -36,9 +36,8 @@ This project converts long-form growth content (YouTube talks, podcast interview
 After ingesting the source material but **before writing**, run targeted web searches using WebSearch to deeply contextualize the content. This is what transforms a transcript dump into a practitioner-grade essay.
 
 **COMPUTE EFFICIENCY RULES:**
-- **NEVER spawn background agents or sub-agents for research.** They are expensive, frequently time out, and block the essay anyway since writing cannot start until research completes. Use direct WebSearch calls only.
+- **NEVER spawn multi-agent workflows (background agents, sub-agents, parallel agent swarms) for any part of the essay workflow.** They are expensive, frequently time out, and destroy compute limits. All research, writing, and PDF generation must run in the main session.
 - **Run 4-8 parallel WebSearch calls** covering the research dimensions below. Review results, then run a second targeted round of 2-4 searches if gaps remain.
-- **Do not use the Agent tool anywhere in the essay workflow.** Not for research, not for writing, not for PDF generation. Everything runs in the main session.
 - **No polling or sleep loops.** Every step should execute sequentially: read transcript, run searches, write essay, generate PDF.
 
 Run searches across these four dimensions:
