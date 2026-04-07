@@ -46,9 +46,9 @@ After ingesting the source material but **before writing**, run targeted web sea
 Run searches across these four dimensions:
 
 ### A. Speaker's Extended Thinking
-Search for the speaker's own writing, tweets, or other interviews on the same topic. Often they've written a companion blog post, published slides, or done a tweetstorm that adds depth.
+Use WebSearch to find the speaker's own writing, tweets, or other interviews on the same topic. Often they've written a companion blog post, published slides, or done a tweetstorm that adds depth.
 - Search: `"[Speaker Name]" [key topic]`
-- Check their personal blog, Substack, company blog, and X/Twitter
+- If search results surface a specific post that fills a gap the transcript doesn't cover, then fetch it. Do not fetch just to browse.
 
 ### B. Supporting & Contrasting Evidence
 Search for real-world case studies, data, or counterarguments related to the claims being made. Present both sides where relevant.
@@ -161,8 +161,6 @@ The goal is NOT summarization. The reader is choosing this essay INSTEAD OF watc
 - **Preserve the speaker's qualifications and caveats.** If the speaker said "coding is largely solved, but with important exceptions," do not write "coding is solved." The qualifications are the nuance.
 - **Include specific examples, anecdotes, and data points** the speaker used. If they told a story, describe the story. If they cited a number, cite the number. If they named a company, name the company.
 - **Cover every major topic discussed**, not just the most quotable ones. If the video has 20 chapters, all 20 should be reflected in the essay, even if some are handled briefly.
-- **Section 3 (Key Insights & Frameworks) should be the longest section.** This is where the full depth lives. Write as much as the material demands. Do not pad with repetition or filler, but do not compress either. Every subsection should fully explain the idea, not gesture at it.
-- **No artificial word or paragraph limits on any section.** Let the material dictate the length. But every sentence must earn its place: no rambling, no repeating the same point in different words, no filler.
 
 ## PDF Formatting Rules
 
