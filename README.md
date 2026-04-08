@@ -79,7 +79,7 @@ Open Claude Code in the project directory and send a link:
 |------|---------|
 | `CLAUDE.md` | System instructions, essay template, research rules |
 | `research/` | Growth engineering and marketing knowledge bases |
-| `essays/md2pdf.mjs` | PDF generator with image embedding |
+| `tools/md2pdf.mjs` | PDF generator with image embedding |
 | `tools/transcribe_groq.py` | Maven/Mux transcription via Groq Whisper API (primary) |
 | `tools/transcribe_maven.py` | Maven/Mux transcription via local faster-whisper (fallback) |
 | `fonts/` | Inter + InterDisplay TTFs |

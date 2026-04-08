@@ -201,11 +201,11 @@ When source content contains important diagrams, charts, framework visuals, data
 - Location: `D:/Claude Code Projects/Lenny/essays/`
 - Naming: `YYYY-MM-DD - Title.pdf`
 - **Essay markdown files:** Save to `essays/essay md files/` (not the essays root) to keep things organized
-- Generate PDFs using the Node.js script (`essays/md2pdf.mjs`) with pdf-lib and @pdf-lib/fontkit
+- Generate PDFs using the Node.js script (`tools/md2pdf.mjs`) with pdf-lib and @pdf-lib/fontkit
 
 ## Markdown Heading Hierarchy
 
-The PDF generator (md2pdf.mjs) relies on correct heading levels. **This is a hard rule with no exceptions:**
+The PDF generator (`tools/md2pdf.mjs`) relies on correct heading levels. **This is a hard rule with no exceptions:**
 
 - `#` (H1): Document title only. Used exactly once, as the first heading. This becomes the large title at the top of the PDF.
 - `##` (H2): Section headers (Executive Summary, Key Insights & Frameworks, Tactical Playbook, Contrarian Takes, What to Revisit, Sources & Further Reading). Rendered with display font, horizontal rule separator, and large spacing.

@@ -2,7 +2,7 @@
  * Markdown to PDF converter for Growth Content Essays
  * Uses Inter font, generous whitespace, clean formatting
  *
- * Usage: node essays/md2pdf.mjs <input.md> <output.pdf>
+ * Usage: node tools/md2pdf.mjs <input.md> <output.pdf>
  */
 
 import { PDFDocument, rgb } from 'pdf-lib';

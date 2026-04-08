@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "AI-powered system that converts long-form growth content into detailed practitioner-grade essays",
   "scripts": {
-    "pdf": "node essays/md2pdf.mjs"
+    "pdf": "node tools/md2pdf.mjs"
   },
   "keywords": [
     "growth-engineering",
