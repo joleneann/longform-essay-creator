@@ -2,6 +2,16 @@
 
 This project converts long-form growth content (YouTube talks, podcast interviews, blog posts) into detailed written essays. The user reads better than she watches — the goal is to produce comprehensive, practitioner-grade essays that let her internalize the material without sitting through hour-long videos.
 
+## Response Length
+
+**Default to brief for conversational responses. Expand only when explicitly asked.**
+
+- Chat questions get short, direct answers. No lists unless the user asks for one. No section headers unless the user asks for structure. No exhaustive categorization or framing.
+- If the user asks a one-line question, the answer is one to three sentences.
+- Caveats, alternatives, and related context are omitted unless requested.
+- The essay workflow is the exception: essays remain comprehensive and follow the full template.
+- If the user wants depth on a conversational question, they will say so ("explain", "go deep", "list options"). Otherwise assume they want the answer and nothing else.
+
 ## Workflow
 
 1. **User sends input**: A YouTube link, blog URL, Maven Lightning Lesson link, or pasted text from any growth operator (Lenny Rachitsky, a16z partners, Reforge instructors, Figma leaders, Anthropic folks, etc.)

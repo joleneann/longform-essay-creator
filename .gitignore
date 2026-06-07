@@ -23,3 +23,17 @@ tools/whisper-env/
 .DS_Store
 Thumbs.db
 .env
+
+# Claude Code local (settings, worktrees, locks)
+.claude/
+
+# Obsidian vault config and scratch files
+.obsidian/
+*.canvas
+*.base
+
+# Python bytecode cache
+__pycache__/
+
+# Logs
+*.log

@@ -5,7 +5,7 @@
  * Usage: node tools/md2pdf.mjs <input.md> <output.pdf>
  */
 
-import { PDFDocument, rgb } from 'pdf-lib';
+import { PDFDocument, rgb, PDFName, PDFString, PDFArray } from 'pdf-lib';
 import fontkit from '@pdf-lib/fontkit';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve, extname } from 'path';
@@ -90,12 +90,13 @@ async function main() {
   // Parse **bold** and *italic* into segments
   function parseFormatting(text) {
     const segs = [];
-    const re = /\*\*(.+?)\*\*|\*(.+?)\*/g;
+    const re = /\[([^\]]+)\]\(([^)]+)\)|\*\*(.+?)\*\*|\*(.+?)\*/g;
     let last = 0, m;
     while ((m = re.exec(text)) !== null) {
       if (m.index > last) segs.push({ text: text.slice(last, m.index), b: false, i: false });
-      if (m[1] !== undefined) segs.push({ text: m[1], b: true, i: false });
-      else if (m[2] !== undefined) segs.push({ text: m[2], b: false, i: true });
+      if (m[1] !== undefined) segs.push({ text: m[1], b: false, i: false, link: m[2], color: LINK });
+      else if (m[3] !== undefined) segs.push({ text: m[3], b: true, i: false });
+      else if (m[4] !== undefined) segs.push({ text: m[4], b: false, i: true });
       last = re.lastIndex;
     }
     if (last < text.length) segs.push({ text: text.slice(last), b: false, i: false });
@@ -119,7 +120,7 @@ async function main() {
       const words = seg.text.split(/(\s+)/);
       for (const w of words) {
         if (w.length === 0) continue;
-        tokens.push({ text: w, font: f, color: seg.color || color });
+        tokens.push({ text: w, font: f, color: seg.color || color, link: seg.link });
       }
     }
 
@@ -150,6 +151,24 @@ async function main() {
     return lines;
   }
 
+  function ensureAnnots(pg) {
+    let annots = pg.node.lookupMaybe(PDFName.of('Annots'), PDFArray);
+    if (!annots) { annots = pdfDoc.context.obj([]); pg.node.set(PDFName.of('Annots'), annots); }
+    return annots;
+  }
+
+  function addLinkAnnotation(pg, x, yBaseline, w, fontSize, url) {
+    const action = pdfDoc.context.obj({ Type: PDFName.of('Action'), S: PDFName.of('URI'), URI: PDFString.of(url) });
+    const annot = pdfDoc.context.obj({
+      Type: PDFName.of('Annot'),
+      Subtype: PDFName.of('Link'),
+      Rect: [x, yBaseline - 2, x + w, yBaseline + fontSize],
+      Border: [0, 0, 0],
+      A: action,
+    });
+    ensureAnnots(pg).push(pdfDoc.context.register(annot));
+  }
+
   function drawLines(lines, { fontSize = BODY_SIZE, leading = BODY_LEADING, x = ML, color = DARK } = {}) {
     const spaceW = regular.widthOfTextAtSize(' ', fontSize);
     for (const line of lines) {
@@ -158,6 +177,7 @@ async function main() {
       for (let i = 0; i < line.length; i++) {
         const tok = line[i];
         page.drawText(tok.text, { x: dx, y, size: fontSize, font: tok.font, color: tok.color || color });
+        if (tok.link) addLinkAnnotation(page, dx, y, tok.w, fontSize, tok.link);
         dx += tok.w + spaceW;
       }
       y -= leading;
@@ -201,33 +221,40 @@ async function main() {
   }
 
   function drawMeta(label, value) {
-    ensureSpace(META_SIZE + 6);
-    const labelW = bold.widthOfTextAtSize(label + ' ', META_SIZE);
-    page.drawText(label, { x: ML, y, size: META_SIZE, font: bold, color: MUTED });
-    // Wrap value after label
-    const valLines = layoutParagraph(value, { fontSize: META_SIZE, baseFont: regular, color: DARK, maxWidth: CW - labelW });
-    if (valLines.length > 0) {
-      // First line starts after label
-      const spaceW = regular.widthOfTextAtSize(' ', META_SIZE);
-      let dx = ML + labelW;
-      for (const tok of valLines[0]) {
-        page.drawText(tok.text, { x: dx, y, size: META_SIZE, font: tok.font, color: tok.color || DARK });
-        dx += tok.w + spaceW;
-      }
-      y -= META_SIZE + 5;
-      // Remaining lines
-      for (let i = 1; i < valLines.length; i++) {
-        ensureSpace(META_SIZE + 5);
-        let dx2 = ML + labelW;
-        for (const tok of valLines[i]) {
-          page.drawText(tok.text, { x: dx2, y, size: META_SIZE, font: tok.font, color: tok.color || DARK });
-          dx2 += tok.w + spaceW;
-        }
-        y -= META_SIZE + 5;
-      }
-    } else {
-      y -= META_SIZE + 5;
+    const fontSize = META_SIZE;
+    const spaceW = regular.widthOfTextAtSize(' ', fontSize);
+    const tokens = [];
+    for (const w of label.split(/(\s+)/)) {
+      if (!w.trim()) continue;
+      tokens.push({ text: w, font: bold, color: MUTED, w: bold.widthOfTextAtSize(w, fontSize) });
     }
+    for (const seg of parseFormatting(value)) {
+      const f = fontFor(seg, regular);
+      const col = seg.color || DARK;
+      for (const w of seg.text.split(/(\s+)/)) {
+        if (!w.trim()) continue;
+        tokens.push({ text: w, font: f, color: col, link: seg.link, w: f.widthOfTextAtSize(w, fontSize) });
+      }
+    }
+    const lines = [];
+    let cur = [], cw = 0;
+    for (const t of tokens) {
+      const needed = cur.length ? spaceW + t.w : t.w;
+      if (cw + needed > CW && cur.length) { lines.push(cur); cur = [t]; cw = t.w; }
+      else { if (cur.length) cw += spaceW; cur.push(t); cw += t.w; }
+    }
+    if (cur.length) lines.push(cur);
+    for (const line of lines) {
+      ensureSpace(fontSize + 5);
+      let dx = ML;
+      for (const t of line) {
+        page.drawText(t.text, { x: dx, y, size: fontSize, font: t.font, color: t.color });
+        if (t.link) addLinkAnnotation(page, dx, y, t.w, fontSize, t.link);
+        dx += t.w + spaceW;
+      }
+      y -= (fontSize + 5);
+    }
+    y -= 4;
   }
 
   function drawBullet(text, opts = {}) {
