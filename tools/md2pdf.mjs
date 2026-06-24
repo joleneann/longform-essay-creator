@@ -158,7 +158,9 @@ async function main() {
   }
 
   function addLinkAnnotation(pg, x, yBaseline, w, fontSize, url) {
-    const action = pdfDoc.context.obj({ Type: PDFName.of('Action'), S: PDFName.of('URI'), URI: PDFString.of(url) });
+    // Escape backslashes and parentheses so a URL like ...(1).pdf cannot corrupt the PDF literal string
+    const safeUrl = url.replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
+    const action = pdfDoc.context.obj({ Type: PDFName.of('Action'), S: PDFName.of('URI'), URI: PDFString.of(safeUrl) });
     const annot = pdfDoc.context.obj({
       Type: PDFName.of('Annot'),
       Subtype: PDFName.of('Link'),
