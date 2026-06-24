@@ -1,0 +1,77 @@
+{
+  "skill_name": "growth-content-essay",
+  "_note": "Evals for the growth-content-essay skill. Each prompt's <URL> is a placeholder: drop in a real source before running. The 'expectations' encode the CLAUDE.md quality bar so an essay can be graded objectively. Running these is heavy: each case generates a full essay (fetch + research + write + PDF), so run deliberately, ideally one case at a time, with real source links.",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Here's a YouTube growth talk, turn it into an essay: <YOUTUBE_URL>",
+      "expected_output": "A comprehensive practitioner essay saved as a PDF in essays/ (named 'YYYY-MM-DD - Title.pdf') plus its markdown in essays/essay md files/, built from the full transcript and following the 6-section template.",
+      "files": [],
+      "expectations": [
+        "The transcript was pulled with the ytsearch tool and saved to transcripts/ as speaker-name-topic.txt.",
+        "A PDF is saved to essays/ named 'YYYY-MM-DD - Title.pdf', and the source markdown is saved to essays/essay md files/.",
+        "The essay follows the template in order: Source Info metadata, Executive Summary (4-6 sentences), Key Insights & Frameworks (### 3.x subsections), Tactical Playbook, Contrarian / Non-Obvious Takes (3-5 items), Sources & Further Reading.",
+        "Heading levels are correct: a single # title, ## for sections, ### for subsections, and section headers are not numbered.",
+        "A topic inventory covering the entire transcript was built first, and every distinct topic the speaker covers appears in the essay (no major segment dropped or flattened).",
+        "Specific examples, anecdotes, numbers, company names, and the speaker's caveats are preserved, not compressed into single sentences.",
+        "There are no em dashes anywhere in the essay.",
+        "No body bullet uses the '- **Label:** value' meta pattern; body bullets use '- **Label**: value' or '- **Label.** value'.",
+        "Anti-repetition holds: each statistic, quote, and anecdote appears exactly once, with later sections cross-referencing by subsection number instead of restating.",
+        "Every Tactical Playbook item cites the Section 3 subsection it derives from and does not re-explain the underlying insight.",
+        "Sources & Further Reading lists every external source used, each with a URL and a one-line note on what it adds.",
+        "The PDF uses the Inter / InterDisplay fonts and the navy/blue palette with generous spacing (not Helvetica or Arial).",
+        "Major claims, quotes, and statistics are traceable to the source: significant ones carry a timestamp (inline in Section 3), and any claim drawn from research is cited in Section 6. No untraceable facts are introduced."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Can you make an essay from this blog post? <BLOG_URL>",
+      "expected_output": "A full essay PDF (and markdown) built from the blog's actual content, or, if the blog is paywalled, a request for the pasted full text rather than a guessed essay.",
+      "files": [],
+      "expectations": [
+        "If the full blog text is not accessible (paywall), the system asks the user to paste the full text instead of fabricating or guessing content.",
+        "When content is accessible, a PDF is saved to essays/ named 'YYYY-MM-DD - Title.pdf' with markdown in essays/essay md files/.",
+        "The essay follows the 6-section template with correct # / ## / ### heading levels.",
+        "Every distinct idea in the blog is covered; nothing substantive is skipped, and the speaker's nuance and caveats are preserved.",
+        "Proper nouns, product names, and terminology from the source are not silently changed; anything suspected wrong is flagged to the user, not auto-corrected.",
+        "There are no em dashes anywhere in the essay.",
+        "Anti-repetition holds: each stat, quote, and anecdote lives in exactly one section.",
+        "Sources & Further Reading lists every external source used during research, each with a URL and a one-line annotation.",
+        "Prose is plain, clear synthesis (mechanism-first), not a copy of the blog text, and jargon is defined on first use."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Make an essay from this Maven Lightning Lesson: <MAVEN_URL>",
+      "expected_output": "A full essay PDF (and markdown) built from a Whisper transcription of the Maven lesson audio.",
+      "files": [],
+      "expectations": [
+        "The Maven audio was transcribed with the Groq Whisper pipeline (tools/transcribe_groq.py from the Mux signed stream), not by scraping the page or extracting a CC track.",
+        "The transcript is saved to transcripts/ and read end-to-end before writing.",
+        "A PDF is saved to essays/ named 'YYYY-MM-DD - Title.pdf' with markdown in essays/essay md files/.",
+        "The essay follows the 6-section template with correct # / ## / ### heading levels.",
+        "Every topic in the lesson is covered proportionally; introductory/analogy material is included, not treated as filler.",
+        "There are no em dashes, and no body bullet uses the '- **Label:** value' meta pattern.",
+        "Anti-repetition holds and the Tactical Playbook cites its Section 3 sources without re-explaining them.",
+        "Sources & Further Reading lists every external source used, each with a URL and a one-line note."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Combine these two talks from the same speaker into one essay: <YOUTUBE_URL_1> and <YOUTUBE_URL_2>",
+      "expected_output": "A single combined essay PDF (and markdown) that weaves both sources by theme, deduplicates overlap, and credits both sources.",
+      "files": [],
+      "expectations": [
+        "Both transcripts are pulled (ytsearch) and read in full before writing.",
+        "The two sources are woven together by theme into one essay, not stacked source-by-source.",
+        "Overlapping points appear once (deduplicated), keeping the richer version, with later mentions cross-referenced rather than repeated.",
+        "Source Info lists both sources, and each source's key timestamps are attached to its claims inline in Section 3.",
+        "A single PDF is saved to essays/ named 'YYYY-MM-DD - Title.pdf' with markdown in essays/essay md files/.",
+        "The essay follows the 6-section template with correct heading levels and no em dashes.",
+        "Material unique to each source is retained; nothing substantive from either talk is dropped.",
+        "Sources & Further Reading lists both primary sources plus any external research, each with a URL and a one-line note.",
+        "Each claim is attributable to the correct source (no claim is orphaned across the two talks), and major points carry a source locator such as a timestamp."
+      ]
+    }
+  ]
+}

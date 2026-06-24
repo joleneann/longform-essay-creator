@@ -8,7 +8,7 @@ An AI-powered system that synthesizes one or many pieces of long-form content (Y
 |:-----|:-------------|
 | **1. Extract content** | YouTube: ytsearch CLI (instant, no browser). Maven/Mux: Groq Whisper API (~15s per 45-min lesson) with local faster-whisper fallback. Blogs: direct HTTP fetch. |
 | **2. Research context** | Three targeted web searches: speaker's extended thinking, supporting/contrasting evidence, framework lineage. |
-| **3. Write essay** | 7-section template with strict anti-repetition rules and zero redundancy. |
+| **3. Write essay** | 6-section template with strict anti-repetition rules and zero redundancy. |
 | **4. Generate PDF** | Custom PDF with Inter/InterDisplay typography and embedded framework illustrations. |
 
 ## What Makes This Different

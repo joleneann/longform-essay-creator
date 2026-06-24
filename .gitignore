@@ -24,8 +24,9 @@ tools/whisper-env/
 Thumbs.db
 .env
 
-# Claude Code local (settings, worktrees, locks)
-.claude/
+# Claude Code local: ignore settings/worktrees/locks, but track project skills
+.claude/*
+!.claude/skills/
 
 # Obsidian vault config and scratch files
 .obsidian/

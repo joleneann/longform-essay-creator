@@ -119,7 +119,7 @@ When the speaker references established frameworks (crossing the chasm, jobs to 
 - Listicles and low-authority marketing blogs
 - Anything that reads like it was written for search ranking rather than practitioners
 
-**Citation rule**: Every external source used must appear in the "Sources & Further Reading" section (Section 7) of the essay with source name and URL.
+**Citation rule**: Every external source used must appear in the "Sources & Further Reading" section (Section 6) of the essay with source name and URL.
 
 ## Essay Template
 
@@ -143,10 +143,7 @@ Concrete, actionable takeaways organized as specific things to try. Not abstract
 ### 5. Contrarian / Non-Obvious Takes
 3-5 items max. Surprising, counterintuitive, or against-the-grain points worth remembering. Each item: one-sentence statement of the take, then 1-2 sentences of supporting reasoning that adds something NOT already covered in Section 3. If a contrarian take was fully developed in Section 3, it stays there and should not be duplicated here.
 
-### 6. What to Revisit
-Specific sections, timestamps (for videos), or passages worth going back to for deeper study. Point the reader to exactly where to look.
-
-### 7. Sources & Further Reading
+### 6. Sources & Further Reading
 A curated, annotated list of the best external sources found during the research phase. Each entry should include:
 - Source name and URL
 - One sentence on what it adds (e.g., "Andrew Chen's essay on network effects; explains the cold start problem the speaker references in the context of marketplace growth loops")
@@ -228,7 +225,7 @@ When source content contains important diagrams, charts, framework visuals, data
 The PDF generator (`tools/md2pdf.mjs`) relies on correct heading levels. **This is a hard rule with no exceptions:**
 
 - `#` (H1): Document title only. Used exactly once, as the first heading. This becomes the large title at the top of the PDF.
-- `##` (H2): Section headers (Executive Summary, Key Insights & Frameworks, Tactical Playbook, Contrarian Takes, What to Revisit, Sources & Further Reading). Rendered with display font, horizontal rule separator, and large spacing.
+- `##` (H2): Section headers (Executive Summary, Key Insights & Frameworks, Tactical Playbook, Contrarian Takes, Sources & Further Reading). Rendered with display font, horizontal rule separator, and large spacing.
 - `###` (H3): Subsection headers (3.1, 3.2, etc. within Key Insights). Rendered with semibold display font and moderate spacing.
 
 **Do NOT number section headers** (no "1. Source Info", "2. Executive Summary"). The structure is implicit from the template. Source info metadata goes directly under the title as `- **Label:** value` lines.
