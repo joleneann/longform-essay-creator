@@ -37,7 +37,8 @@ Both modes pass through the same `essay-preflight` gate before the PDF is writte
 
 ## Workflow
 
-1. **User sends input**: A YouTube link, blog URL, Maven Lightning Lesson link, or pasted text from any growth operator (Lenny Rachitsky, a16z partners, Reforge instructors, Figma leaders, Anthropic folks, etc.)
+0. **Claude asks the mode** (growth vs general) via `AskUserQuestion`, before fetching anything. See Essay Modes above. Do not proceed until the user answers.
+1. **User sends input**: A YouTube link, blog or news URL, Maven Lightning Lesson link, or pasted text. Growth mode covers growth operators (Lenny Rachitsky, a16z partners, Reforge instructors, Figma leaders, Anthropic folks, etc.); general mode covers any topic.
 2. **Claude fetches the content**:
    - **YouTube links**: Use `ytsearch` (`tools/ytsearch/`) to extract transcripts instantly via CLI:
      ```
@@ -58,7 +59,7 @@ Both modes pass through the same `essay-preflight` gate before the PDF is writte
      - **Upcoming live events:** No recording exists yet. Check for "LIVE" badge + future date.
 
      **Legacy fallback:** `tools/transcribe_maven.py` uses local faster-whisper (CPU, int8). Much slower (~20-50 min per lesson). Only use if Groq API is unavailable.
-   - **Blog URLs**: Fetch via WebFetch and extract the article content. Only process blogs where the full content is accessible. If a blog is paywalled, ask the user to copy-paste the full text instead.
+   - **Blog and news URLs**: Fetch via WebFetch and extract the article content. Only process pages where the full content is accessible. If a page is paywalled, ask the user to copy-paste the full text instead.
    - **Pasted text**: Process directly.
 3. **Claude reads the FULL transcript and builds a topic inventory.** This step is mandatory and non-negotiable.
    - Read the transcript end-to-end. Every line, not sampling or skimming.
@@ -67,7 +68,7 @@ Both modes pass through the same `essay-preflight` gate before the PDF is writte
    - Save the topic inventory to the essay markdown file as a working note (remove before final PDF generation).
 4. **Claude runs contextual web research** (see Research Phase below).
 5. **Claude writes a detailed essay** following the template below, enriched by the research. Cross-check every section against the topic inventory from step 3. Any uncovered topic is a failure. **CRITICAL: NEVER start writing the essay until ALL research is complete. The research enriches every section of the essay. Writing before research completes means rewriting later and produces a worse first draft. Always wait.**
-6. **Claude saves the essay as a PDF** in `essays/` using the PDF skill, named `YYYY-MM-DD - Title.pdf`.
+6. **Claude generates the PDF** with `node tools/md2pdf.mjs`, which runs the preflight gate first, saving to `essays/YYYY-MM-DD - Title.pdf`.
 
 ## Source Fidelity Rule
 
@@ -85,7 +86,7 @@ After ingesting the source material but **before writing**, run targeted web sea
 - **NEVER take browser screenshots for confirmation.** Screenshots during transcript extraction or navigation are wasted tool calls. Only screenshot when a visual (chart, diagram, framework image) must be embedded in the essay itself.
 - **Before running any WebFetch call, ask: does the transcript already cover this?** If yes, skip it. The transcripts are the primary source. External fetches are for gaps, not decoration.
 
-Run searches across these four dimensions:
+Run searches across these three dimensions:
 
 ### A. Speaker's Extended Thinking
 Use WebSearch to find the speaker's own writing, tweets, or other interviews on the same topic. Often they've written a companion blog post, published slides, or done a tweetstorm that adds depth.

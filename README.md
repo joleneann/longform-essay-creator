@@ -34,7 +34,7 @@ One toolchain, one set of quality rules, two content templates. The mode is alwa
 
 **Multi-source synthesis.** Send multiple sources on the same theme and the system weaves them into a single cohesive essay, tracing where authors agree, diverge, and build on each other. The [On Taste](samples/On%20Taste.pdf) sample combines six independent voices (Paul Graham, Julie Zhuo, Gaurav Vohra, Emil Kowalski, Anu Atluru, Steve Jobs) spanning two decades into one unified argument.
 
-**Research-enriched.** Before writing a single line, the system runs targeted web research across three dimensions: finding what the same speaker has written or said elsewhere on the same themes (companion blog posts, tweetstorms, other interviews), locating real-world case studies and data that support or contradict the claims being made, and tracing referenced frameworks back to their canonical sources. This contextual research is what turns a transcript into an essay that's actually richer than the original. Sources are drawn from a curated list of 20+ preferred practitioners and publications.
+**Research-enriched.** Before writing a single line, the system runs targeted web research across three dimensions: finding what the same speaker has written or said elsewhere on the same themes (companion blog posts, tweetstorms, other interviews), locating real-world case studies and data that support or contradict the claims being made, and tracing referenced frameworks back to their canonical sources. This contextual research is what turns a transcript into an essay that's actually richer than the original. In growth mode, sources are drawn from a curated list of 20+ preferred practitioners and publications; in general mode, research serves the piece rather than a beat.
 
 ## Sample Output
 
@@ -46,7 +46,7 @@ See [`samples/`](samples/) for complete examples:
 
 ## Tech Stack
 
-[ytsearch](https://github.com/Infatoshi/ytsearch) for YouTube transcripts | [Groq Whisper API](https://console.groq.com/docs/speech-to-text) for Maven/Mux transcription (247x real-time, ~$0.03/lesson) with [faster-whisper](https://github.com/SYSTRAN/faster-whisper) fallback | ffmpeg for audio extraction | [pdf-lib](https://github.com/Hopding/pdf-lib) + [fontkit](https://github.com/nicolo-ribaudo/fontkit) for PDF generation | [Inter](https://rsms.me/inter/) + InterDisplay typography | Claude Code for orchestration
+[ytsearch](https://github.com/Infatoshi/ytsearch) for YouTube transcripts | [Groq Whisper API](https://console.groq.com/docs/speech-to-text) for Maven/Mux transcription (247x real-time, ~$0.03/lesson) with [faster-whisper](https://github.com/SYSTRAN/faster-whisper) fallback | ffmpeg for audio extraction | [pdf-lib](https://github.com/Hopding/pdf-lib) + [fontkit](https://github.com/nicolo-ribaudo/fontkit) for PDF generation | [sharp](https://github.com/lovell/sharp) for image rendering | [Inter](https://rsms.me/inter/) + InterDisplay typography | Claude Code for orchestration
 
 ## Setup
 
@@ -102,6 +102,7 @@ The first question back is always which mode to use. Answer it and the rest runs
 | `tools/md2docx.mjs` | Word export, for when a PDF is not the deliverable |
 | `tools/transcribe_groq.py` | Maven/Mux transcription via Groq Whisper API (primary) |
 | `tools/transcribe_maven.py` | Maven/Mux transcription via local faster-whisper (fallback) |
+| `tools/ytsearch/` | YouTube transcript CLI (cloned separately, see Setup) |
 | `fonts/` | Inter + InterDisplay TTFs |
 | `samples/` | Sample essay output |
 | `transcripts/`* | Saved transcripts (local only) |
@@ -111,4 +112,4 @@ The first question back is always which mode to use. Answer it and the rest runs
 
 ## About
 
-Built by **Jolene Fernandes**, a growth engineer and marketer who built this system to deeply study the operators she follows. The system reflects how she learns: read over watch, depth over breadth, practitioners over pundits. 
+Built by **Jolene Fernandes**, a growth engineer and marketer who built this system to deeply study the operators she follows, and anything else worth reading closely. The system reflects how she learns: read over watch, depth over breadth, practitioners over pundits. 
