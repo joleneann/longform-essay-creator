@@ -5,9 +5,7 @@ node_modules/
 transcripts/
 
 # Bulk essays (third-party content derivatives)
-essays/*.pdf
-essays/*.md
-essays/images/
+essays/
 
 # Font extras (only core TTFs needed)
 fonts/extras/
@@ -38,3 +36,10 @@ __pycache__/
 
 # Logs
 *.log
+
+# Local project folders (content and scratch work, not part of the system)
+Future Summit/
+Vet Marketing Project/
+references/
+transcribe_batch.sh
+tools/ytsearch/fetch_eric.py

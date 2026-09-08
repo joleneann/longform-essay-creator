@@ -26,7 +26,7 @@ One toolchain, one set of quality rules, two content templates. The mode is alwa
 
 **Not a summary.** A full replacement for watching the video or reading many long form blogs. Every major topic gets proportional depth. Speaker qualifications, caveats, examples, and data points are preserved.
 
-**Zero redundancy.** The essay template enforces strict anti-repetition rules: every idea, quote, and data point gets exactly one home. Cross-references replace restatements. The result is essays that are 25-35% shorter with zero loss of unique content.
+**Zero redundancy.** The essay template enforces strict anti-repetition rules: every idea, quote, and data point gets exactly one home. Cross-references replace restatements, so nothing is said twice.
 
 **Nothing lands cold.** The reader has not seen the source, so every person, company, document, event, and quote is introduced at its first appearance in the essay's own ordering, not the source's. Stated effects carry their causes. Bare names and dropped antecedents are treated as the same class of failure as omitting a topic.
 
