@@ -1,21 +1,36 @@
 # Longform Essay System
 
-An AI-powered system that synthesizes one or many pieces of long-form content (YouTube talks, podcast interviews, blog posts) into detailed written essays. Built for those short on time, and read better than they watch.
+An AI-powered system that synthesizes one or many pieces of long-form content (YouTube talks, podcast interviews, blog posts, news features) into detailed written essays. Built for those short on time, and read better than they watch.
+
+## Two Modes
+
+One toolchain, one set of quality rules, two content templates. The mode is always chosen by asking, never inferred from the source, because a wrong mode wastes the whole essay.
+
+| Mode | For | Template |
+|:-----|:----|:---------|
+| **Growth** | Growth operators and growth topics (Lenny, a16z, Reforge, Figma, Anthropic) | Source Info, Executive Summary, Key Insights & Frameworks, Tactical Playbook, Contrarian Takes, Sources |
+| **General** | Any topic: one long-form article, a news feature, a magazine essay, or several merged into one | Source Info, Executive Summary, thematic Breakdown chapters, optional Sources. No growth scaffolding |
 
 ## How It Works
 
 | Step | What happens |
 |:-----|:-------------|
-| **1. Extract content** | YouTube: ytsearch CLI (instant, no browser). Maven/Mux: Groq Whisper API (~15s per 45-min lesson) with local faster-whisper fallback. Blogs: direct HTTP fetch. |
-| **2. Research context** | Three targeted web searches: speaker's extended thinking, supporting/contrasting evidence, framework lineage. |
-| **3. Write essay** | 6-section template with strict anti-repetition rules and zero redundancy. |
-| **4. Generate PDF** | Custom PDF with Inter/InterDisplay typography and embedded framework illustrations. |
+| **1. Pick the mode** | Growth or general, asked up front. Nothing is fetched, researched, or written until the answer lands. |
+| **2. Extract content** | YouTube: ytsearch CLI (instant, no browser). Maven/Mux: Groq Whisper API (~15s per 45-min lesson) with local faster-whisper fallback. Blogs and articles: direct HTTP fetch. |
+| **3. Build a topic inventory** | The full transcript is read end to end and turned into a numbered, timestamped list of every topic. That list is the skeleton; nothing on it may be dropped. |
+| **4. Research context** | 4 to 8 parallel web searches: the speaker's extended thinking, supporting and contrasting evidence, framework lineage. A second targeted round if gaps remain. |
+| **5. Write essay** | The mode's template, with strict anti-repetition rules and the Nothing Cold reader-onboarding rule. |
+| **6. Preflight, then PDF** | An automatic gate blocks the build on objective violations and prints a review checklist. Then a custom PDF with Inter/InterDisplay typography and embedded framework illustrations. |
 
 ## What Makes This Different
 
 **Not a summary.** A full replacement for watching the video or reading many long form blogs. Every major topic gets proportional depth. Speaker qualifications, caveats, examples, and data points are preserved.
 
 **Zero redundancy.** The essay template enforces strict anti-repetition rules: every idea, quote, and data point gets exactly one home. Cross-references replace restatements. The result is essays that are 25-35% shorter with zero loss of unique content.
+
+**Nothing lands cold.** The reader has not seen the source, so every person, company, document, event, and quote is introduced at its first appearance in the essay's own ordering, not the source's. Stated effects carry their causes. Bare names and dropped antecedents are treated as the same class of failure as omitting a topic.
+
+**A build gate, not a good intention.** `tools/essay-preflight.mjs` runs automatically before any PDF is written. It hard-fails the build on em dashes, meta-bullet formatting traps, spelled-out numbers, and broken heading hierarchy, and prints a first-occurrence inventory of every proper noun and quote for review. The gate exists because the old "remember to sweep at the end" step was self-applied by the same pass that wrote the prose, and so never caught anything.
 
 **Multi-source synthesis.** Send multiple sources on the same theme and the system weaves them into a single cohesive essay, tracing where authors agree, diverge, and build on each other. The [On Taste](samples/On%20Taste.pdf) sample combines six independent voices (Paul Graham, Julie Zhuo, Gaurav Vohra, Emil Kowalski, Anu Atluru, Steve Jobs) spanning two decades into one unified argument.
 
@@ -71,15 +86,20 @@ Open Claude Code in the project directory and send a link:
 - *Blog:* "Process this: https://a16z.com/some-article/"
 - *Maven:* "Process this: https://maven.com/p/LESSON_ID/lesson-name"
 - *Pasted text:* "Process this: [paste full article text]"
+- *News or magazine feature:* "Process this: https://publication.com/some-feature"
 - *Multi-source:* "Synthesize these into one essay: [link 1] [link 2] [link 3]"
+
+The first question back is always which mode to use. Answer it and the rest runs unattended.
 
 ## Project Structure
 
 | Path | Purpose |
 |------|---------|
-| `CLAUDE.md` | System instructions, essay template, research rules |
-| `research/` | Growth engineering and marketing knowledge bases |
-| `tools/md2pdf.mjs` | PDF generator with image embedding |
+| `CLAUDE.md` | System instructions: modes, essay templates, research and quality rules |
+| `.claude/skills/growth-content-essay/` | The skill that runs the workflow, plus its sourcing, template, and formatting references |
+| `tools/md2pdf.mjs` | PDF generator with image embedding; runs preflight before writing |
+| `tools/essay-preflight.mjs` | Quality gate: hard-fails the build on objective violations, prints the Nothing Cold review checklist |
+| `tools/md2docx.mjs` | Word export, for when a PDF is not the deliverable |
 | `tools/transcribe_groq.py` | Maven/Mux transcription via Groq Whisper API (primary) |
 | `tools/transcribe_maven.py` | Maven/Mux transcription via local faster-whisper (fallback) |
 | `fonts/` | Inter + InterDisplay TTFs |

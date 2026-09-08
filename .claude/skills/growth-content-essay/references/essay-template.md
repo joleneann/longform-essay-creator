@@ -2,12 +2,14 @@
 
 There is no word cap. Write as much as the material demands. The section order is fixed.
 
+Two templates live here. Which one you use is decided by the mode question in Step 0 of SKILL.md, never by inference. Growth mode uses the 6-section structure below; general mode uses the general-mode structure at the end of this file. Both share every rule after the templates: anti-repetition, depth, tone, and the formatting rules in `formatting.md`.
+
 ## The 6-section structure
 
 Use `#` for the title once, `##` for each section header (do NOT number section headers), and `###` for subsections inside Key Insights.
 
 ### 1. Source Info
-Metadata directly under the title as `- **Label:** value` lines (this is the one place the meta pattern is correct): Title, Speaker/Author, Date if known, and a Source/Link line. For multiple sources, list each.
+Metadata directly under the title as `- **Label**: value` lines (colon OUTSIDE the bold; preflight hard-fails on `:**` even here): Title, Speaker/Author, Date if known, and a Source/Link line. For multiple sources, list each.
 
 ### 2. Executive Summary
 4 to 6 sentences. State (a) what the source is and who the speaker is, (b) the central argument, and (c) why a growth practitioner should care. It is a map, not the territory. Do not put a statistic here that you want to use in Section 3 (see the stat-once rule).
@@ -62,3 +64,31 @@ The reader is choosing this essay INSTEAD OF watching the source. So:
 - Original synthesis, not transcription: analyze, connect, contextualize.
 - Use growth vocabulary naturally where it is the clearest term.
 - NEVER use em dashes. Use colons, semicolons, commas, parentheses, or restructure.
+
+## The general-mode structure
+
+Used when the user picks general mode in Step 0: one long-form article, a news feature, a magazine essay, a report, or several articles merged into one essay, on any topic. No growth scaffolding.
+
+### 1. Source Info
+Same metadata block as growth mode: `- **Label**: value` lines under the title, covering title, author, publication, date, and link. If merging several sources, list every one.
+
+### 2. Executive Summary
+What the piece is, its central argument, and why it matters. A map, not the territory. Every claim here gets developed later, so do not spend a statistic here that belongs in the body.
+
+### 3. The Breakdown
+Thematic `##` chapters that follow the piece's own argument, with `###` subsections where a chapter needs them. This is the body; write as much as the material demands. The Nothing Cold rule applies in full: the reader has not read the source, so every person, company, document, event, and quote is introduced at its first appearance in YOUR ordering.
+
+Chapter titles are thematic, not numbered, and not the source's own section names unless those happen to be the clearest.
+
+### 4. Sources & Further Reading (optional)
+Only entries that genuinely add value. Same annotated format as growth mode. Omit the section entirely if research surfaced nothing worth a reader's time.
+
+### What general mode OMITS
+The growth angle, the Tactical Playbook, the Contrarian / Non-Obvious Takes section, and the operator-focused research sourcing, unless the user explicitly asks for them.
+
+### Multi-article synthesis
+When merging several sources into one essay:
+- Build ONE combined topic inventory across all sources before writing.
+- Introduce every entity at its first appearance in the MERGED ordering, not the order any single source used. Something introduced in article 2 is still cold if the merged essay reaches it first.
+- Apply the anti-repetition rules across sources: dedupe overlapping claims to a single home chapter, keeping the richer version.
+- Attribute inline wherever a claim is specific to one source.

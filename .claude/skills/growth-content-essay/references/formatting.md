@@ -13,13 +13,27 @@ Wrong levels break the PDF: sections render as plain text and spacing collapses.
 
 Never use the em dash character anywhere in the essay. Use colons, semicolons, commas, parentheses, or restructure the sentence. Before generating the PDF, grep the markdown for em dashes and fix any hits.
 
-## The `:**` body-bullet rule (hard rule)
+## The `:**` rule (hard rule, enforced by preflight)
 
 The md2pdf parser treats any line matching `- **Label:** value` (colon INSIDE the bold, i.e. `:**`) as a Source Info metadata line and hang-indents continuation lines under the label, which looks broken for body bullets.
 
-- Reserve `- **Label:** value` ONLY for the short Source Info block under the title.
-- For every other bulleted list (Tactical Playbook, Contrarian, Sources, definitional lists), keep the colon OUTSIDE the bold: `- **Label**: value`, or use a period: `- **Label.** value`. Both render as proper bullets.
-- Before generating the PDF, grep the markdown for `:\*\*` and confirm every hit is an intended Source Info line.
+`essay-preflight` hard-fails on `:**` ANYWHERE in the file, including the Source Info block. So never use it:
+
+- Source Info: `- **Source**: value`, `- **Speaker**: value`. Colon outside the bold.
+- Every other bulleted list (Tactical Playbook, Contrarian, Sources, definitional lists): `- **Label**: value`, or a period, `- **Label.** value`. Both render as proper bullets.
+- Bolded lead-ins inside body prose follow the same rule: `**Judgment from real experience.** ...`, never `**Judgment:**`.
+
+## Numbers as figures (hard rule, enforced by preflight)
+
+Write numbers as figures: `$13 billion`, `70 pages`, `26%`, `3 years`, `5 pillars`. Never spell them out, and never inherit a source's house style. Preflight hard-fails on the common spelled forms (hundred, thousand, million as bare words) and warns on small spelled numbers; clear the warnings unless the number is grammatical rather than quantitative. Never alter a number inside a direct quote.
+
+## The preflight gate (mandatory, mechanical)
+
+`md2pdf.mjs` runs `tools/essay-preflight.mjs` automatically before writing any PDF.
+
+It HARD-FAILS the build (no PDF written) on: em dashes, `:**`, spelled-out numbers, and broken heading hierarchy. It PRINTS, for your review, a first-occurrence inventory of every proper noun and every quote, plus effect-without-cause flags.
+
+You must read that inventory and confirm each first-occurrence proper noun is introduced, each quote is framed, and each effect flag has its cause on the page, before accepting the PDF. The tool cannot judge sufficiency; it only forces the review. Do not pass `--skip-preflight` to dodge a real fix.
 
 ## Generating the PDF
 

@@ -1,6 +1,29 @@
 # Growth Content Essay System
 
-This project converts long-form growth content (YouTube talks, podcast interviews, blog posts) into detailed written essays. The user reads better than she watches — the goal is to produce comprehensive, practitioner-grade essays that let her internalize the material without sitting through hour-long videos.
+This project converts long-form content into detailed written essays. The user reads better than she watches; the goal is comprehensive, practitioner-grade essays that let her internalize the material without sitting through hour-long videos or long articles.
+
+## Essay Modes: Growth vs General
+
+The system runs in two modes that share one toolchain (transcript tools, `tools/md2pdf.mjs`, the `tools/essay-preflight.mjs` gate) and one set of quality rules (Nothing Cold, anti-repetition, numbers-as-figures, PDF formatting). Only the content template differs.
+
+**Mode is chosen by ASKING the user before every essay, never inferred.** The first action of any essay task is a mode question (growth vs general) via `AskUserQuestion`; do not ingest the source, research, or write until the user answers. If the user already named the mode, still ask but pre-select their choice as the recommended option. This is a hard rule: a wrong mode wastes the whole essay, so never guess from the source.
+
+- **Growth mode.** Growth operators (Lenny, a16z, Reforge, Figma, Anthropic, etc.). Uses the Workflow, Research Phase, source list, and the 6-section template below.
+- **General mode.** Summarizing one long-form article, or merging several articles into a single essay, on any topic (e.g. a news feature or magazine essay).
+
+**General-mode template** (no growth scaffolding):
+- **Source Info:** title, author, publication, date, link. List every source if merging several.
+- **Executive Summary:** what the piece is, its central argument, why it matters. A map, not the territory.
+- **The Breakdown:** thematic `##` chapters that follow the piece's own argument, with every element introduced (Nothing Cold applies in full). This is the body; write as much as the material demands.
+- **Sources & Further Reading** (optional): only entries that genuinely add value.
+- OMIT the growth angle, Tactical Playbook, Contrarian Takes, and the operator-focused research sourcing unless the user asks for them.
+
+**Multi-article synthesis** (merging several articles into one essay):
+- Build ONE combined topic inventory across all sources before writing.
+- Introduce every entity at its first appearance in the MERGED ordering, not the order any single source used. Something introduced in article 2 is still cold if the merged essay reaches it first.
+- Apply the anti-repetition rules across sources; dedupe overlapping claims to a single home section.
+
+Both modes pass through the same `essay-preflight` gate before the PDF is written.
 
 ## Response Length
 
@@ -75,7 +98,7 @@ Search for real-world case studies, data, or counterarguments related to the cla
 - If the speaker cites a metric → find corroborating or conflicting data
 
 ### C. Framework Lineage
-When the speaker references established frameworks (crossing the chasm, jobs to be done, growth loops, AARRR, etc.), search for the canonical source and — critically — how the framework has been applied in growth contexts specifically.
+When the speaker references established frameworks (crossing the chasm, jobs to be done, growth loops, AARRR, etc.), search for the canonical source and, critically, how the framework has been applied in growth contexts specifically.
 
 ### Source Quality Rules
 
@@ -123,7 +146,7 @@ When the speaker references established frameworks (crossing the chasm, jobs to 
 
 ## Essay Template
 
-Every essay must follow this structure. There is **no word cap** — write as much as the material demands. The word ranges below are rough proportionality guides, not limits. If a section needs more space, take it.
+Every essay must follow this structure. There is **no word cap**: write as much as the material demands. The word ranges below are rough proportionality guides, not limits. If a section needs more space, take it.
 
 ### 1. Source Info
 - Title
@@ -159,6 +182,19 @@ These rules are mandatory for every essay. The goal is zero redundancy across se
 3. **Stat once.** Every statistic or data point may appear at most once. If a stat is used in the Executive Summary as a hook, it must not reappear in Section 3.
 4. **Cross-reference, don't restate.** When a later section needs to build on an earlier idea, use a parenthetical cross-reference: "(see 3.4)" or "Building on the underfunding paradox (3.6)..." followed by NEW analysis only. Never restate what was already said.
 5. **Self-check before finalizing.** Before producing the final essay, scan for any idea, quote, stat, or anecdote that appears more than once. Eliminate all duplicates by keeping the instance in the most appropriate section and replacing other instances with cross-references or removing them entirely.
+
+## Reader-Onboarding Rule (Nothing Cold)
+
+The reader is meeting every person, company, document, product, quote, event, and reference for the first time through the essay. They have NOT watched or read the source. Anything dropped in cold, without the context needed to parse it, is a failure, the same class of error as omitting a topic. This applies to ALL elements, not just names of people.
+
+1. **Introduce every proper noun at first mention.** The first time a person appears, give their role and why they matter in that context (e.g., "Reid Hoffman, the LinkedIn co-founder who held a Microsoft board seat and had backed OpenAI"). Same for companies, funds, documents, bills, and products. Never let a bare name carry a sentence the reader can't parse.
+2. **No cold quotes.** Every quote needs a frame: who said it, to whom, and in what situation, BEFORE or as the quote lands. A bare parenthetical quote like `("Either go do something on your own or continue with OpenAI as a nonprofit")` is broken; the reader can't tell it was Musk's parting ultimatum in the fight over control. Set the scene, then quote.
+3. **No cold references or events.** Any event, document, deal, lawsuit, framework, or prior moment referenced must carry enough context to stand on its own. "The breach in India," "the merge-and-assist clause," "the countries plan" all need a clause explaining what they were at first mention. Do not assume the reader carries the source's shared context.
+4. **Introduce once, then use the short form.** After the first full introduction, use the last name or short name only. A second "former board member Tasha McCauley" is a redundancy bug; delete the re-introduction. Same for events: name the thing fully once, then refer to it briefly.
+5. **Watch reordering.** When the essay's structure differs from the source's chronology, an element may first appear in a section that comes BEFORE the one where the source introduced it. Introduce it at its first appearance in YOUR ordering, not the source's.
+6. **No compressed hand-waves.** When compressing a passage, do not drop the antecedent. "The ousted members demanded X" is broken if the reader was never told who was ousted. Name them, or don't reference them.
+7. **No stated effect without its cause.** If you write that something unnerved, alarmed, stunned, or worried someone, or that a deal was "at risk" or a board "paid the price," the reason must be on the page. "The superyacht visit unnerved the employees" is broken without the cause (it was crawling with the sheikh's armed security detail). State the effect and the cause together, or cut the effect.
+8. **Mandatory preflight gate (mechanical, not remembered).** `md2pdf.mjs` automatically runs `tools/essay-preflight.mjs` before writing any PDF. It HARD-FAILS the build (no PDF) on objective violations (em dashes, `:**` meta-bullets, spelled-out numbers, broken heading hierarchy), and PRINTS a first-occurrence inventory of every proper noun and quote plus effect-without-cause flags. You MUST read that inventory and confirm each first-occurrence proper noun is introduced, each quote is framed, and each effect flag has its cause on the page, before accepting the PDF. The tool cannot judge sufficiency; it only forces the review. Do not pass `--skip-preflight` to dodge a real fix. This gate replaces the old "remember to sweep" step, which failed because it was self-applied by the same pass that wrote the prose.
 
 ## Tone & Style
 
@@ -228,6 +264,6 @@ The PDF generator (`tools/md2pdf.mjs`) relies on correct heading levels. **This 
 - `##` (H2): Section headers (Executive Summary, Key Insights & Frameworks, Tactical Playbook, Contrarian Takes, Sources & Further Reading). Rendered with display font, horizontal rule separator, and large spacing.
 - `###` (H3): Subsection headers (3.1, 3.2, etc. within Key Insights). Rendered with semibold display font and moderate spacing.
 
-**Do NOT number section headers** (no "1. Source Info", "2. Executive Summary"). The structure is implicit from the template. Source info metadata goes directly under the title as `- **Label:** value` lines.
+**Do NOT number section headers** (no "1. Source Info", "2. Executive Summary"). The structure is implicit from the template. Source info metadata goes directly under the title as `- **Label**: value` lines, with the colon OUTSIDE the bold: `essay-preflight` hard-fails on `:**` anywhere in the file, including the metadata block.
 
 Wrong heading levels will break PDF formatting: sections render as plain text, spacing collapses, and the visual hierarchy disappears.
