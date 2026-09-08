@@ -65,6 +65,18 @@ async function main() {
   const outPath = resolve(args[1]);
   const md = readFileSync(mdPath, 'utf-8');
 
+  // --- Preflight gate: block objective "cold reference" violations, print the review checklist ---
+  if (!args.includes('--skip-preflight')) {
+    const { analyze, formatReport } = await import('./essay-preflight.mjs');
+    const report = analyze(md);
+    console.log(formatReport(report));
+    if (report.hardFails.length) {
+      console.error(`\nPreflight FAILED: ${report.hardFails.length} blocking issue(s). No PDF written.`);
+      console.error('Fix them, or pass --skip-preflight to override deliberately.');
+      process.exit(1);
+    }
+  }
+
   const pdfDoc = await PDFDocument.create();
   pdfDoc.registerFontkit(fontkit);
 
